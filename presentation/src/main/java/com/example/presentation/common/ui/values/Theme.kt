@@ -1,0 +1,31 @@
+package com.example.presentation.common.ui.values
+
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.runtime.Composable
+
+private val ColorScheme
+    @Composable
+    get() = darkColorScheme(
+        primary = Blue,
+        onPrimary = White,
+        secondary = LightGray,
+        background = Background,
+        onBackground = White,
+        primaryContainer = Dark,
+        onPrimaryContainer = White,
+        error = Red,
+        onError = White,
+        surfaceVariant = Shadow
+    )
+
+@Composable
+fun FunnyCombinationTheme(
+    content: @Composable () -> Unit
+) {
+    MaterialTheme(
+        colorScheme = ColorScheme,
+        typography = Typography,
+        content = content
+    )
+}
