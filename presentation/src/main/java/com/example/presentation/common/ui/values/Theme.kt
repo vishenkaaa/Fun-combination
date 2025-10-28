@@ -1,21 +1,21 @@
 package com.example.presentation.common.ui.values
 
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
 private val ColorScheme
     @Composable
-    get() = darkColorScheme(
-        primary = Blue,
-        onPrimary = White,
+    get() = lightColorScheme(
+        primary = Orange,
+        onPrimary = Dark,
         secondary = LightGray,
         background = Background,
-        onBackground = White,
+        onBackground = Dark,
         primaryContainer = Dark,
-        onPrimaryContainer = White,
+        onPrimaryContainer = Dark,
         error = Red,
-        onError = White,
+        onError = Dark,
         surfaceVariant = Shadow
     )
 

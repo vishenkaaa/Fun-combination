@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="blue">#1B539A</color>
+    <color name="orange">#CD954B</color>
     <color name="light_gray">#99FFFFFF</color>
     <color name="shadow">#294F4F4F</color>
-    <color name="white">#DFDFEB</color>
-    <color name="background">#101010</color>
+    <color name="background">#FFFFFF</color>
     <color name="dark">#1D1D1D</color>
     <color name="red">#D92632</color>
 </resources>

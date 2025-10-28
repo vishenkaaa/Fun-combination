@@ -25,6 +25,15 @@ val display1: TextStyle
         color = MaterialTheme.colorScheme.onBackground
     )
 
+val display2: TextStyle
+    @Composable
+    get() = TextStyle(
+        fontFamily = gilroyFontFamily,
+        fontWeight = FontWeight.Normal,
+        fontSize = 40.sp,
+        color = MaterialTheme.colorScheme.onBackground
+    )
+
 val title1: TextStyle
     @Composable
     get() = TextStyle(
@@ -87,6 +96,7 @@ val Typography: Typography
     @Composable
     get() = Typography(
         displayLarge = display1,
+        displayMedium = display2,
         headlineLarge = headline1,
         headlineMedium = headline2,
         titleLarge = title1,
