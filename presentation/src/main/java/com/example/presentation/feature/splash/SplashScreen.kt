@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -117,14 +118,14 @@ fun SplashScreen(
             color = MaterialTheme.colorScheme.background,
             fontWeight = MaterialTheme.typography.displayLarge.fontWeight
         )){
-            append("Funny")
+            append(stringResource(R.string.funny))
         }
         withStyle(style = SpanStyle(
             fontSize = MaterialTheme.typography.displayMedium.fontSize,
             color = MaterialTheme.colorScheme.background,
             fontWeight = MaterialTheme.typography.displayMedium.fontWeight,
         )){
-            append("\nCombination")
+            append(stringResource(R.string.combination))
         }
     }
 

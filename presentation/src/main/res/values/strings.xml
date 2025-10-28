@@ -2,4 +2,37 @@
 <resources>
     <string name="retry">Retry</string>
     <string name="press_again_to_exit">Press again to exit</string>
+    <string name="play">Play</string>
+    <string name="high_score">High Score</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="exit">Exit</string>
+    <string name="funny">Funny</string>
+    <string name="combination">\nCombination</string>
+    <string name="funny_combination">Funny Combination</string>
+    <string name="pp_section_1_title">1. General Provisions</string>
+    <string name="pp_section_1_content">This Privacy Policy describes how the \"Funny Combination\" game (hereinafter - \"the Game\") collects, uses, and protects user information.\n\nBy using the Game, you agree to the terms of this Privacy Policy.</string>
+
+    <string name="pp_section_2_title">2. Information We Collect</string>
+    <string name="pp_section_2_content">The Game collects and stores locally on your device the following information:\n\n• Game scores (high scores)\n• Game completion dates\n• Game settings\n\nThis information is stored exclusively on your device and is not transmitted to third parties or external servers.</string>
+
+    <string name="pp_section_3_title">3. How We Use Information</string>
+    <string name="pp_section_3_content">The collected information is used exclusively for:\n\n• Displaying your game progress\n• Saving high scores\n• Improving gaming experience\n\nWe do not transfer, sell, or distribute your personal information.</string>
+
+    <string name="pp_section_4_title">4. Data Security</string>
+    <string name="pp_section_4_content">All data is stored locally on your device in an encrypted database. We use standard protection methods to ensure the security of your data.\n\nData can be deleted by uninstalling the app or clearing the app data in your device settings.</string>
+
+    <string name="pp_section_5_title">5. User Rights</string>
+    <string name="pp_section_5_content">You have the right to:\n\n• Delete all your data by uninstalling the app\n• Reset your scores through game settings\n• Refuse to use the app at any time</string>
+
+    <string name="pp_section_6_title">6. Children</string>
+    <string name="pp_section_6_content">The Game is intended for users of all ages. We do not knowingly collect personal information from children under 13 years of age.\n\nIf you are a parent or guardian and believe that your child has provided us with personal information, please contact us.</string>
+
+    <string name="pp_section_7_title">7. Changes to Privacy Policy</string>
+    <string name="pp_section_7_content">We reserve the right to update this Privacy Policy from time to time. We will notify you of all significant changes through the app.\n\nLast updated: October 28, 2025</string>
+
+    <string name="pp_section_8_title">8. Contact Information</string>
+    <string name="pp_section_8_content">If you have any questions about this Privacy Policy, please contact us:\n\nEmail: support@funnycombination.example.com\n\nWe will respond to your inquiry within 48 hours.</string>
+
+    <string name="pp_copyright">© 2025 Funny Combination. All rights reserved.</string>
+
 </resources>
