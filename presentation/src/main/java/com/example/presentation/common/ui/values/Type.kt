@@ -39,26 +39,16 @@ val title1: TextStyle
     get() = TextStyle(
         fontFamily = gilroyFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 20.sp,
+        fontSize = 32.sp,
         color = MaterialTheme.colorScheme.onBackground
     )
 
-val headline1: TextStyle
+val title2: TextStyle
     @Composable
     get() = TextStyle(
         fontFamily = gilroyFontFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        color = MaterialTheme.colorScheme.onBackground
-    )
-
-val headline2: TextStyle
-    @Composable
-    get() = TextStyle(
-        fontFamily = gilroyFontFamily,
-        fontWeight = FontWeight.Medium,
-        fontSize = 28.sp,
+        fontSize = 24.sp,
         color = MaterialTheme.colorScheme.onBackground
     )
 
@@ -67,7 +57,7 @@ val body1: TextStyle
     get() = TextStyle(
         fontFamily = gilroyFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
+        fontSize = 20.sp,
         lineHeight = 24.sp,
         color = MaterialTheme.colorScheme.onBackground
     )
@@ -77,7 +67,7 @@ val body2: TextStyle
     get() = TextStyle(
         fontFamily = gilroyFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp,
+        fontSize = 18.sp,
         lineHeight = 21.sp,
         color = MaterialTheme.colorScheme.onBackground
     )
@@ -87,7 +77,7 @@ val body3: TextStyle
     get() = TextStyle(
         fontFamily = gilroyFontFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 12.sp,
+        fontSize = 16.sp,
         lineHeight = 18.sp,
         color = MaterialTheme.colorScheme.onBackground
     )
@@ -97,9 +87,8 @@ val Typography: Typography
     get() = Typography(
         displayLarge = display1,
         displayMedium = display2,
-        headlineLarge = headline1,
-        headlineMedium = headline2,
         titleLarge = title1,
+        titleMedium = title2,
         bodyLarge = body1,
         bodyMedium = body2,
         bodySmall = body3

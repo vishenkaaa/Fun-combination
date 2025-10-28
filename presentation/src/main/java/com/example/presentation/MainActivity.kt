@@ -96,6 +96,7 @@ class MainActivity : FragmentActivity() {
                                 AppNavHost(
                                     modifier = Modifier.fillMaxSize(),
                                     navController = navController!!,
+                                    onExit = { finish() }
                                 )
                             }
                         },

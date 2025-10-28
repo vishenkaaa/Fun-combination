@@ -25,4 +25,7 @@ sealed class Main {
 
     @Serializable
     data object PrivacyPolicy : Main()
+
+    @Serializable
+    data object GameOver : Main()
 }

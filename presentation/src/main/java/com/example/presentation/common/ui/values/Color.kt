@@ -5,13 +5,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.colorResource
 import com.example.presentation.R
 
-val Orange: Color
+val Primary: Color
     @Composable
-    get() = colorResource(R.color.orange)
+    get() = colorResource(R.color.primary)
 
-val LightGray: Color
+val Secondary: Color
     @Composable
-    get() = colorResource(R.color.light_gray)
+    get() = colorResource(R.color.secondary)
 
 val Shadow: Color
     @Composable
