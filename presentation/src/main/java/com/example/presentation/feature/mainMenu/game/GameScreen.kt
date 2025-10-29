@@ -43,11 +43,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.domain.model.GameEmoji
 import com.example.presentation.R
+import com.example.presentation.common.ui.components.DarkOverlay
 import com.example.presentation.common.ui.components.EmojiButton
 import com.example.presentation.feature.mainMenu.game.model.GameState
 
@@ -85,18 +87,14 @@ fun GameScreen(
             contentScale = ContentScale.Crop
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f))
-        )
+        DarkOverlay()
 
         Scaffold(
             topBar = {
                 TopAppBar(
                     title = {
                         Text(
-                            text = "Level ${gameState.currentLevel}",
+                            text = stringResource(R.string.level, gameState.currentLevel),
                             style = MaterialTheme.typography.titleMedium,
                             color = MaterialTheme.colorScheme.onPrimary
                         )
@@ -178,7 +176,8 @@ private fun ProgressSection(
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(
-            text = if (isShowingSequence) "Watch carefully!" else "Your turn!",
+            text = if (isShowingSequence) stringResource(R.string.watch_carefully)
+            else stringResource(R.string.your_turn),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onPrimary,
 
@@ -249,7 +248,7 @@ private fun DisplayArea(
         if ((!gameState.isShowingSequence && gameState.lastPressedEmoji == null) ||
             (gameState.isShowingSequence && gameState.currentDisplayIndex == -1)) {
             Text(
-                text = "?",
+                text = stringResource(R.string.question_mark),
                 style = MaterialTheme.typography.displayMedium.copy(fontSize = 80.sp),
                 color = MaterialTheme.colorScheme.background.copy(alpha = 0.4f)
             )
@@ -322,18 +321,14 @@ private fun ReadyScreen(countdown: Int) {
             contentScale = ContentScale.Crop
         )
 
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onBackground.copy(alpha = 0.4f))
-        )
+        DarkOverlay()
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(24.dp)
         ) {
             Text(
-                text = "Get Ready!",
+                text = stringResource(R.string.get_ready),
                 style = MaterialTheme.typography.displayMedium,
                 color = MaterialTheme.colorScheme.onPrimary
             )

@@ -34,5 +34,10 @@
     <string name="pp_section_8_content">If you have any questions about this Privacy Policy, please contact us:\n\nEmail: support@funnycombination.example.com\n\nWe will respond to your inquiry within 48 hours.</string>
 
     <string name="pp_copyright">© 2025 Funny Combination. All rights reserved.</string>
+    <string name="level">Level %1$d</string>
+    <string name="watch_carefully">Watch carefully!</string>
+    <string name="your_turn">Your turn!</string>
+    <string name="question_mark">\?</string>
+    <string name="get_ready">Get Ready!</string>
 
 </resources>

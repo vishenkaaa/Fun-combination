@@ -1,7 +1,6 @@
 package com.example.presentation.feature.mainMenu
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,6 +22,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.presentation.R
+import com.example.presentation.common.ui.components.DarkOverlay
 import com.example.presentation.common.ui.components.MenuButton
 
 @Composable
@@ -59,12 +59,7 @@ fun MainMenuScreen(
             modifier = Modifier.blur(16.dp)
         )
 
-        Box(
-            Modifier
-                .fillMaxSize()
-                .background(MaterialTheme.colorScheme.onBackground.copy(0.3f))
-
-        )
+        DarkOverlay()
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
