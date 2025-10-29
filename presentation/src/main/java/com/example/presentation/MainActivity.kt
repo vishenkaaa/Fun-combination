@@ -27,8 +27,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.presentation.common.ui.values.FunnyCombinationTheme
 import com.example.presentation.navigation.AppNavHost
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
+@AndroidEntryPoint
 class MainActivity : FragmentActivity() {
     private var navController: NavHostController? = null
     private val mainVM: MainVM by viewModels()

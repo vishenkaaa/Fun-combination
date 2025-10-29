@@ -11,8 +11,11 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
 import com.example.presentation.feature.mainMenu.MainMenuRoute
 import com.example.presentation.feature.mainMenu.game.GameRoute
+import com.example.presentation.feature.mainMenu.game.gameOver.GameOverRoute
+import com.example.presentation.feature.mainMenu.highScore.HighScoreRoute
 import com.example.presentation.feature.mainMenu.privacyPolicy.PrivacyPolicyRoute
 import com.example.presentation.feature.splash.SplashRoute
 
@@ -67,7 +70,13 @@ private fun NavGraphBuilder.homeGraph(
     composable<Main.Game> {
         GameRoute(
             onNavigateBack = { navController.popBackStack() },
-            onNavigateToGameOver = { navController.navigate(Main.GameOver) }
+            onNavigateToGameOver = { score ->
+                navController.navigate(Main.GameOver(score = score)) {
+                    popUpTo(Main.Menu) {
+                        inclusive = false
+                    }
+                }
+            }
         )
     }
 
@@ -84,12 +93,24 @@ private fun NavGraphBuilder.homeGraph(
        PrivacyPolicyRoute{ navController.popBackStack() }
     }
 
-    composable<Main.GameOver> {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Game Over")
-        }
+    composable<Main.GameOver> { backStackEntry ->
+        val gameOver: Main.GameOver = backStackEntry.toRoute()
+        GameOverRoute(
+            score = gameOver.score,
+            onNavigateToMenu = {
+                navController.navigate(Main.Menu) {
+                    popUpTo(Main.Menu) {
+                        inclusive = true
+                    }
+                }
+            },
+            onPlayAgain = {
+                navController.navigate(Main.Game) {
+                    popUpTo(Main.Menu) {
+                        inclusive = false
+                    }
+                }
+            }
+        )
     }
 }

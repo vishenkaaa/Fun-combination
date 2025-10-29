@@ -1,5 +1,6 @@
 package com.example.presentation.feature.mainMenu.game
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
@@ -8,6 +9,7 @@ import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.animation.togetherWith
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -116,49 +118,56 @@ fun GameScreen(
             },
             containerColor = Color.Transparent
         ) { paddingValues ->
-            Box(modifier = Modifier.fillMaxSize()) {
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .padding(paddingValues)
-                        .padding(16.dp),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    ProgressSection(
-                        currentProgress = gameState.userInput.size,
-                        totalProgress = gameState.sequence.size,
-                        isShowingSequence = gameState.isShowingSequence
-                    )
+            AnimatedContent(
+                targetState = gameState.showReadyScreen,
+                label = "GameScreenStateTransition",
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues),
+                transitionSpec = {
+                    fadeIn(animationSpec = tween(durationMillis = 500)) togetherWith
+                            fadeOut(animationSpec = tween(durationMillis = 500))
+                }
+            ) { showReadyScreen ->
+                if (showReadyScreen) {
+                    ReadyScreen(countdown = gameState.countdown)
+                } else {
+                    Box(modifier = Modifier.fillMaxSize()) {
+                        Column(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            ProgressSection(
+                                currentProgress = gameState.userInput.size,
+                                totalProgress = gameState.sequence.size,
+                                isShowingSequence = gameState.isShowingSequence
+                            )
 
-                    Spacer(modifier = Modifier.weight(1f))
+                            Spacer(modifier = Modifier.weight(1f))
 
-                    AnimatedVisibility(
-                        visible = gameState.isWaitingForInput,
-                        enter = slideInVertically(
-                            initialOffsetY = { it }
-                        ) + fadeIn(animationSpec = tween(durationMillis = 300)),
+                            AnimatedVisibility(
+                                visible = gameState.isWaitingForInput,
+                                enter = slideInVertically(
+                                    initialOffsetY = { it }
+                                ) + fadeIn(animationSpec = tween(durationMillis = 300)),
 
-                        exit = slideOutVertically(
-                            targetOffsetY = { it }
-                        ) + fadeOut(animationSpec = tween(durationMillis = 300))
-                    ) {
-                        EmojiButtonsPanel(
-                            onEmojiPressed = onEmojiPressed,
-                            enabled = gameState.isWaitingForInput && !gameState.isGameOver,
+                                exit = slideOutVertically(
+                                    targetOffsetY = { it }
+                                ) + fadeOut(animationSpec = tween(durationMillis = 300))
+                            ) {
+                                EmojiButtonsPanel(
+                                    onEmojiPressed = onEmojiPressed,
+                                    enabled = gameState.isWaitingForInput && !gameState.isGameOver,
+                                )
+                            }
+                        }
+
+                        DisplayArea(
+                            gameState = gameState
                         )
                     }
-                }
-
-                DisplayArea(
-                    gameState = gameState
-                )
-
-                AnimatedVisibility(
-                    visible = gameState.showReadyScreen,
-                    enter = scaleIn(tween(300)) + fadeIn(tween(300)),
-                    exit = scaleOut(tween(300)) + fadeOut(tween(300))
-                ) {
-                    ReadyScreen(countdown = gameState.countdown)
                 }
             }
         }
@@ -218,7 +227,7 @@ private fun DisplayArea(
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(top = 250.dp)
+            .padding(top = 150.dp)
             .height(280.dp)
             .padding(16.dp)
             .clip(RoundedCornerShape(24.dp))
@@ -314,15 +323,6 @@ private fun ReadyScreen(countdown: Int) {
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.splash_bg),
-            contentDescription = null,
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
-        )
-
-        DarkOverlay()
-
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(24.dp)

@@ -27,5 +27,5 @@ sealed class Main {
     data object PrivacyPolicy : Main()
 
     @Serializable
-    data object GameOver : Main()
+    data class GameOver(val score: Int) : Main()
 }

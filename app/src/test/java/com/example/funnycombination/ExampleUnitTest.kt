@@ -1,4 +1,4 @@
-package com.example.funnycombination_app
+package com.example.funnycombination
 
 import org.junit.Test
 

@@ -1,4 +1,4 @@
-package com.example.funnycombination_app
+package com.example.funnycombination
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
