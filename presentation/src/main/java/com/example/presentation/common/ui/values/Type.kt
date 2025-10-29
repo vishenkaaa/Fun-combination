@@ -76,7 +76,7 @@ val body3: TextStyle
     @Composable
     get() = TextStyle(
         fontFamily = gilroyFontFamily,
-        fontWeight = FontWeight.Normal,
+        fontWeight = FontWeight.Medium,
         fontSize = 16.sp,
         lineHeight = 18.sp,
         color = MaterialTheme.colorScheme.onBackground

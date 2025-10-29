@@ -12,6 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.presentation.feature.mainMenu.MainMenuRoute
+import com.example.presentation.feature.mainMenu.game.GameRoute
 import com.example.presentation.feature.mainMenu.privacyPolicy.PrivacyPolicyRoute
 import com.example.presentation.feature.splash.SplashRoute
 
@@ -64,12 +65,10 @@ private fun NavGraphBuilder.homeGraph(
     }
 
     composable<Main.Game> {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            Text("Game")
-        }
+        GameRoute(
+            onNavigateBack = { navController.popBackStack() },
+            onNavigateToGameOver = { navController.navigate(Main.GameOver) }
+        )
     }
 
     composable<Main.HighScore> {

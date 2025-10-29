@@ -8,13 +8,11 @@ private val ColorScheme
     @Composable
     get() = lightColorScheme(
         primary = Primary,
-        onPrimary = Background,
+        onPrimary = White_80,
         secondary = Secondary,
-        onSecondary = Background,
-        background = Background,
+        onSecondary = White_80,
+        background = White,
         onBackground = Dark,
-        primaryContainer = Dark,
-        onPrimaryContainer = Dark,
         error = Red,
         onError = Dark,
         surfaceVariant = Shadow
