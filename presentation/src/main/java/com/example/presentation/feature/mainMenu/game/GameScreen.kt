@@ -51,6 +51,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.domain.model.GameEmoji
 import com.example.presentation.R
+import com.example.presentation.common.ui.components.AppToolbar
 import com.example.presentation.common.ui.components.DarkOverlay
 import com.example.presentation.common.ui.components.EmojiButton
 import com.example.presentation.feature.mainMenu.game.model.GameState
@@ -93,28 +94,9 @@ fun GameScreen(
 
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        Text(
-                            text = stringResource(R.string.level, gameState.currentLevel),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onPrimary
-                        )
-                    },
-                    navigationIcon = {
-                        IconButton(onClick = onNavigateBack) {
-                            Icon(
-                                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                                contentDescription = "Back",
-                                tint = MaterialTheme.colorScheme.onPrimary
-                            )
-                        }
-                    },
-                    colors = TopAppBarDefaults.topAppBarColors(
-                        containerColor = Color.Transparent,
-                        scrolledContainerColor = Color.Transparent
-                    )
-                )
+                AppToolbar(stringResource(R.string.level, gameState.currentLevel)) {
+                    onNavigateBack()
+                }
             },
             containerColor = Color.Transparent
         ) { paddingValues ->

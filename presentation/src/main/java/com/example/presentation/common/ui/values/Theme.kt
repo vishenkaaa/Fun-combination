@@ -11,6 +11,7 @@ private val ColorScheme
         onPrimary = White_80,
         secondary = Secondary,
         onSecondary = White_80,
+        tertiary = Yellow,
         background = White,
         onBackground = Dark,
         error = Red,

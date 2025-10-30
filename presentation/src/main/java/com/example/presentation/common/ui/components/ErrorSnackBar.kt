@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +13,6 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
@@ -25,26 +23,23 @@ import androidx.compose.ui.zIndex
 fun ErrorSnackBar(
     snackBarHostState: SnackbarHostState,
     error: String,
-    actionLabel: String? = null,
     onErrorDismissed: (() -> Unit)? = null,
-    onErrorConsumed: (() -> Unit)? = null,
-    duration: SnackbarDuration = SnackbarDuration.Long,
 ) {
+    val noActionLabel: String? = null
 
     LaunchedEffect(error, snackBarHostState) {
         val action = snackBarHostState.showSnackbar(
             message = error,
-            actionLabel = actionLabel,
-            duration = if(actionLabel==null)SnackbarDuration.Short else duration,
+            actionLabel = noActionLabel,
+            duration = SnackbarDuration.Short,
             withDismissAction = true
         )
         when (action) {
             SnackbarResult.Dismissed -> {
                 onErrorDismissed?.invoke()
             }
-            SnackbarResult.ActionPerformed -> {
-                onErrorConsumed?.invoke()
-            }
+
+            SnackbarResult.ActionPerformed -> {}
         }
     }
 
@@ -58,23 +53,9 @@ fun ErrorSnackBar(
                 .zIndex(1f),
             shape = RoundedCornerShape(16.dp),
             containerColor = MaterialTheme.colorScheme.primaryContainer,
-            action = if (snackbarData.visuals.actionLabel != null) {
-                {
-                    TextButton(
-                        onClick = { snackbarData.performAction() },
-                        colors = ButtonDefaults.textButtonColors(
-                            contentColor = MaterialTheme.colorScheme.primary
-                        )
-                    ) {
-                        Text(
-                            text = snackbarData.visuals.actionLabel!!,
-                            color = MaterialTheme.colorScheme.primary,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                    }
-                }
-            } else null,
-            dismissAction = if (snackbarData.visuals.withDismissAction) {
+            action = null,
+            dismissAction = if (snackbarData.visuals.withDismissAction
+            ) {
                 {
                     IconButton(
                         onClick = { snackbarData.dismiss() }) {
@@ -85,12 +66,13 @@ fun ErrorSnackBar(
                         )
                     }
                 }
-            } else null) {
+            } else null
+        ) {
             Text(
                 text = snackbarData.visuals.message,
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(end = if (actionLabel != null) 8.dp else 0.dp)
+                modifier = Modifier.padding(end = 0.dp)
             )
         }
     }

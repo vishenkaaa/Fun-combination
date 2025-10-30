@@ -11,28 +11,15 @@ open class BaseViewModel : ViewModel() {
     private val _baseUiState = MutableStateFlow(BaseUiState())
     val baseUiState: StateFlow<BaseUiState> = _baseUiState.asStateFlow()
 
-    private var lastRetryAction: (() -> Unit)? = null
-
     protected open fun handleLoading(isLoading: Boolean) {
         _baseUiState.update { it.copy(isLoading = isLoading) }
     }
 
     protected open fun handleError(
-        e: Throwable,
-        retryAction: (() -> Unit)? = null
+        e: Throwable
     ) {
         e.printStackTrace()
-        lastRetryAction = retryAction
         _baseUiState.update { it.copy(error = e.message, isLoading = false) }
-    }
-
-    fun hasRetryAction(): Boolean {
-        return lastRetryAction != null
-    }
-
-    fun retryLastAction() {
-        clearErrors()
-        lastRetryAction?.invoke()
     }
 
     open fun clearErrors() {

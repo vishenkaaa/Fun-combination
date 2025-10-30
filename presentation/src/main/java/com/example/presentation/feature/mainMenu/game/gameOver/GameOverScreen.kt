@@ -33,7 +33,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -41,8 +40,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.presentation.R
+import com.example.presentation.arch.BaseUiState
 import com.example.presentation.common.ui.components.DarkOverlay
+import com.example.presentation.common.ui.components.HandleError
+import com.example.presentation.common.ui.components.LoadingBackground
 
 @Composable
 fun GameOverRoute(
@@ -51,9 +54,10 @@ fun GameOverRoute(
     onPlayAgain: () -> Unit,
     viewModel: GameOverVM = hiltViewModel()
 ) {
-    val isNewHighScore by viewModel.isNewHighScore.collectAsState()
+    val isNewHighScore by viewModel.isNewHighScore.collectAsStateWithLifecycle()
+    val baseUiState by viewModel.baseUiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(score) {
+    LaunchedEffect(Unit) {
         viewModel.saveScore(score)
     }
 
@@ -61,16 +65,20 @@ fun GameOverRoute(
         score = score,
         isNewHighScore = isNewHighScore,
         onNavigateToMenu = onNavigateToMenu,
-        onPlayAgain = onPlayAgain
+        onPlayAgain = onPlayAgain,
+        baseUiState = baseUiState,
+        onClearErrors = { viewModel.clearErrors() }
     )
 }
 
 @Composable
 fun GameOverScreen(
+    baseUiState: BaseUiState,
     score: Int,
     isNewHighScore: Boolean,
     onNavigateToMenu: () -> Unit,
-    onPlayAgain: () -> Unit
+    onPlayAgain: () -> Unit,
+    onClearErrors: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -82,77 +90,85 @@ fun GameOverScreen(
 
         DarkOverlay()
 
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(32.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
+        LoadingBackground(baseUiState.isLoading)
+
+        if (!baseUiState.isLoading)
             Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(32.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(24.dp)
+                verticalArrangement = Arrangement.Center
             ) {
-                Text(
-                    text = "Game Over",
-                    style = MaterialTheme.typography.displayLarge,
-                    color = MaterialTheme.colorScheme.onPrimary
-                )
-
-                ScoreCard(
-                    score = score,
-                    isNewHighScore = isNewHighScore
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                Button(
-                    onClick = onPlayAgain,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary
-                    ),
-                    shape = RoundedCornerShape(16.dp)
+                Column(
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                    verticalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    Icon(
-                        imageVector = Icons.Default.Refresh,
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp)
-                    )
-                    Spacer(modifier = Modifier.size(8.dp))
                     Text(
-                        text = "Play Again",
-                        style = MaterialTheme.typography.titleSmall,
+                        text = stringResource(R.string.game_over),
+                        style = MaterialTheme.typography.displayLarge,
                         color = MaterialTheme.colorScheme.onPrimary
                     )
-                }
 
-                OutlinedButton(
-                    onClick = onNavigateToMenu,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(56.dp),
-                    colors = ButtonDefaults.outlinedButtonColors(
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    ),
-                    shape = RoundedCornerShape(16.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Home,
-                        contentDescription = null,
-                        modifier = Modifier.size(24.dp)
+                    ScoreCard(
+                        score = score,
+                        isNewHighScore = isNewHighScore
                     )
-                    Spacer(modifier = Modifier.size(8.dp))
-                    Text(
-                        text = "Main Menu",
-                        style = MaterialTheme.typography.titleSmall,
-                        color = MaterialTheme.colorScheme.onPrimary
-                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Button(
+                        onClick = onPlayAgain,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary
+                        ),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Refresh,
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Text(
+                            text = stringResource(R.string.play_again),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
+
+                    OutlinedButton(
+                        onClick = onNavigateToMenu,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(56.dp),
+                        colors = ButtonDefaults.outlinedButtonColors(
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        ),
+                        shape = RoundedCornerShape(16.dp)
+                    ) {
+                        Icon(
+                            imageVector = Icons.Default.Home,
+                            contentDescription = null,
+                            modifier = Modifier.size(24.dp)
+                        )
+                        Spacer(modifier = Modifier.size(8.dp))
+                        Text(
+                            text = stringResource(R.string.main_menu),
+                            style = MaterialTheme.typography.titleSmall,
+                            color = MaterialTheme.colorScheme.onPrimary
+                        )
+                    }
                 }
             }
-        }
+
+        HandleError(
+            baseUiState = baseUiState,
+            onErrorConsume = onClearErrors
+        )
     }
 }
 
@@ -171,7 +187,7 @@ private fun ScoreCard(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = "Your Score",
+            text = stringResource(R.string.your_score),
             style = MaterialTheme.typography.titleMedium,
             color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f)
         )
@@ -186,33 +202,23 @@ private fun ScoreCard(
         )
 
         if (isNewHighScore) {
-            AnimatedVisibility(
-                visible = true,
-                enter = scaleIn(tween(300, delayMillis = 200)) + fadeIn(
-                    tween(
-                        300,
-                        delayMillis = 200
-                    )
-                )
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Star,
-                        contentDescription = null,
-                        modifier = Modifier.size(48.dp),
-                        tint = Color(0xFFFFD700)
-                    )
-                    Text(
-                        text = "New High Score!",
-                        style = MaterialTheme.typography.titleLarge.copy(
-                            fontWeight = FontWeight.Bold
-                        ),
-                        color = Color(0xFFFFD700)
-                    )
-                }
+                Icon(
+                    imageVector = Icons.Default.Star,
+                    contentDescription = null,
+                    modifier = Modifier.size(48.dp),
+                    tint = MaterialTheme.colorScheme.tertiary
+                )
+                Text(
+                    text = stringResource(R.string.new_high_score),
+                    style = MaterialTheme.typography.titleLarge.copy(
+                        fontWeight = FontWeight.Bold
+                    ),
+                    color = MaterialTheme.colorScheme.tertiary
+                )
             }
         }
     }
