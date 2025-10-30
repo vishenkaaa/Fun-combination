@@ -22,7 +22,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -39,6 +38,7 @@ import com.example.presentation.R
 import com.example.presentation.arch.BaseUiState
 import com.example.presentation.common.ui.components.AppToolbar
 import com.example.presentation.common.ui.components.DarkOverlay
+import com.example.presentation.common.ui.components.HandleError
 import com.example.presentation.common.ui.components.LoadingBackground
 
 @Composable
@@ -52,7 +52,8 @@ fun HighScoreRoute(
     HighScoreScreen(
         highScores = highScores,
         onNavigateBack = onNavigateBack,
-        baseUiState = baseUiState
+        baseUiState = baseUiState,
+        onClearErrors = { viewModel.clearErrors() }
     )
 }
 
@@ -60,7 +61,8 @@ fun HighScoreRoute(
 fun HighScoreScreen(
     baseUiState: BaseUiState,
     highScores: List<HighScore>,
-    onNavigateBack: () -> Unit
+    onNavigateBack: () -> Unit,
+    onClearErrors: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize()) {
         Image(
@@ -138,6 +140,11 @@ fun HighScoreScreen(
                     }
                 }
             }
+
+        HandleError(
+            baseUiState = baseUiState,
+            onErrorConsume = onClearErrors
+        )
     }
 }
 
